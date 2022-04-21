@@ -38,7 +38,23 @@ app.get("/api/leffat", function (req, res) {
         }
         /*      Muuten lähetetään tietokannan tulokset selaimelle  */
         else {
-            res.json(results, 200);
+            /* res.json(results, 200); */
+            res.status(200).json(results)
+        }
+    });
+});
+
+app.get("/api/hae/:id", function (req, res) {
+    var id = req.params.id;
+    Movie.findById(id, function (err, results) {
+        /*     Jos tietokantahaussa tapahtuu virhe, palautetaan virhekoodi myös selaimelle */
+        if (err) {
+            res.json("Järjestelmässä tapahtui virhe", 500);
+        }
+        /*      Muuten lähetetään tietokannan tulokset selaimelle  */
+        else {
+            /* res.json(results, 200); */
+            res.status(200).json(results)
         }
     });
 });
