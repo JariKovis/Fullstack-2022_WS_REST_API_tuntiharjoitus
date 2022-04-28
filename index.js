@@ -49,6 +49,22 @@ app.get("/api/hae/:id", function (req, res) {
     Movie.findById(id, function (err, results) {
         /*     Jos tietokantahaussa tapahtuu virhe, palautetaan virhekoodi myös selaimelle */
         if (err) {
+            res.status(500).json("Järjestelmässä tapahtui virhe");
+        }
+        /*      Muuten lähetetään tietokannan tulokset selaimelle  */
+        else {
+            /* res.json(results, 200); */
+            res.status(200).json(results)
+        }
+    });
+});
+
+// Haetaan yksi leffa - nimen perusteella
+
+app.get("/api/name/:text", (req, res) => {
+    Movie.find({ name: req.params.text }, (err, results) => {
+
+        if (err) {
             res.json("Järjestelmässä tapahtui virhe", 500);
         }
         /*      Muuten lähetetään tietokannan tulokset selaimelle  */
@@ -59,8 +75,7 @@ app.get("/api/hae/:id", function (req, res) {
     });
 });
 
-// Lisätään yksi leffa - huomaa POST-muuttujien lukeminen
-
+// Lisätään yksi leffa 
 app.post("/api/lisaa", function (req, res) {
     var nimi = req.body.title;
     var vuosi = req.body.year;
