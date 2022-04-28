@@ -7,6 +7,8 @@ require("dotenv").config();
 var mongoose = require("mongoose");
 var uri = process.env.DB_URI;
 
+const PORT = process.env.PORT || 5000;
+
 // Yhdistetään tietokantaan
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
@@ -134,6 +136,6 @@ app.delete("/api/poista/:id", function (req, res) {
 });
 
 // Web-palvelimen luonti Expressin avulla
-app.listen(8081, function () {
+app.listen(PORT, function () {
     console.log("Kuunnellaan porttia 8081!");
 });
